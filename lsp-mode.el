@@ -1266,6 +1266,11 @@ disappearing, unset all the variables related to it."
 (defun lsp--suggest-project-root ()
   "Get project root."
   (or
+   (when (eq major-mode 'dart-mode)
+     (let ((file (buffer-file-name (current-buffer))))
+       (or (locate-dominating-file file "pubspec.yaml")
+           (locate-dominating-file file "BUILD")
+           (file-name-directory file))))
    (when (featurep 'projectile) (condition-case nil
                                     (projectile-project-root)
                                   (error nil)))
