@@ -1267,10 +1267,7 @@ disappearing, unset all the variables related to it."
   "Get project root."
   (or
    (when (eq major-mode 'dart-mode)
-     (let ((file (buffer-file-name (current-buffer))))
-       (or (locate-dominating-file file "pubspec.yaml")
-           (locate-dominating-file file "BUILD")
-           (file-name-directory file))))
+     (file-name-directory (buffer-file-name (current-buffer))))
    (when (featurep 'projectile) (condition-case nil
                                     (projectile-project-root)
                                   (error nil)))
